@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Configuration;
-using System.Diagnostics;
 using System.IO;
-using System.Timers;
 
 namespace FileSyncService
 {
@@ -10,8 +7,8 @@ namespace FileSyncService
     {
         public FileSyncBase()
         {
-            LocalRootPath = ConfigurationManager.AppSettings["localRootPath"];
-            RemoteRootPath = ConfigurationManager.AppSettings["rocalRootPath"];
+            LocalRootPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            RemoteRootPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SteveHayes";
         }
 
         public string LocalRootPath { get; set; }

@@ -10,8 +10,9 @@ namespace FileSyncService
             try
             {
                 var localRootPath = e.FullPath;
-                var remoteRootPath = e.FullPath.Replace(LocalRootPath, RemoteRootPath);
-                var directoryExists = Directory.Exists(localRootPath);
+                var localRootPathOld = e.OldFullPath;
+                var remoteRootPath = string.Format("{0}\\{1}", RemoteRootPath, e.Name);
+                var directoryExists = Directory.Exists(remoteRootPath);
                 
                 if (directoryExists)
                 {
@@ -19,7 +20,7 @@ namespace FileSyncService
                 }
                 else
                 {
-                    File.Move(localRootPath, remoteRootPath);
+                    File.Move(localRootPathOld + ".txt", remoteRootPath);
                 }
             }
             catch

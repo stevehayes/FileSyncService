@@ -10,7 +10,7 @@ namespace FileSyncService
             try
             {
                 var remoteRoot = e.FullPath.Replace(LocalRootPath, RemoteRootPath);
-                var directoryExists = DirectoryExists(remoteRoot);
+                var directoryExists = Directory.Exists(remoteRoot);
 
                 if (directoryExists)
                 {
@@ -18,9 +18,8 @@ namespace FileSyncService
                 }
                 else
                 {
-                    File.Delete(remoteRoot);
+                    File.Delete(remoteRoot + ".txt");
                 }
-
             }
             catch
             {

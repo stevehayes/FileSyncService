@@ -1,37 +1,38 @@
 ﻿using System;
 using System.IO;
+using Moq;
 using NUnit.Framework;
 
 namespace FileSyncService.Tests
 {
     [TestFixture]
-    public class FileDeleteServiceTests
+    public class FileRenameServiceTests
     {
-        private FileDeleteService _fileDeleteService;
+        private FileRenameService _fileRenameService;
         private string _localRootPath;
         private string _fileName;
 
         [TestFixtureSetUp]
         public void Setup()
         {
-            _fileDeleteService = new FileDeleteService();
+            _fileRenameService = new FileRenameService();
             _localRootPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             _fileName = string.Format("FileSyncFile-{0}", Guid.NewGuid());
             CreateFile();
         }
 
         [Test]
-        public void Should_delete_a_test_file()
+        public void Should_rename_file()
         {
-            var deletedEvent = new FileSystemEventArgs(WatcherChangeTypes.Deleted, _localRootPath, _fileName);
-            _fileDeleteService.DeleteFile(deletedEvent);
-            Assert.That(!File.Exists(_localRootPath + "\\SteveHayes\\" + _fileName + ".txt"));
+            var newFileName = string.Format("Renamed-file-{0}.txt", Guid.NewGuid());
+            var renameEvent = new RenamedEventArgs(WatcherChangeTypes.Renamed, _localRootPath, newFileName, _fileName);
+            _fileRenameService.RenameFile(renameEvent);
+            Assert.That(File.Exists(_localRootPath + "\\SteveHayes\\" + newFileName));
         }
 
         private void CreateFile()
         {
-            var path = _localRootPath + "\\SteveHayes\\" + _fileName + ".txt";
-            Directory.CreateDirectory(_localRootPath + "\\SteveHayes");
+            var path = _localRootPath + "\\" + _fileName + ".txt";
             using (var writer = new StreamWriter(path))
             {
                 if (!File.Exists(path))

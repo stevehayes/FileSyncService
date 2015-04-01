@@ -25,13 +25,13 @@ namespace FileSyncService
 
         protected override void OnStart(string[] args)
         {
-            EventLog.WriteEntry("File Sync Service has Started.");
+            //EventLog.WriteEntry("File Sync Service has Started.");
             _fileSystemWatcher = ConfigureFileSyncWatcher();
         }
 
         protected override void OnStop()
         {
-            EventLog.WriteEntry("File Sync Service has Stopped.");
+            // EventLog.WriteEntry("File Sync Service has Stopped.");
         }
 
         private FileSystemWatcher ConfigureFileSyncWatcher()
@@ -51,7 +51,7 @@ namespace FileSyncService
             }
             catch (Exception exception)
             {
-                EventLog.WriteEntry("File Sync Service did not start due to the following reason(s): " + exception.Message);
+                //EventLog.WriteEntry("File Sync Service did not start due to the following reason(s): " + exception.Message);
             }
 
             return syncFolder;

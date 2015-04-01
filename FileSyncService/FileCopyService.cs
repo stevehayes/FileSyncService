@@ -19,9 +19,8 @@ namespace FileSyncService
                 }
                 else
                 {
-                    File.Copy(localPath, remotePath, true);
+                    File.Copy(localPath + ".txt", remotePath + ".txt", true);
                 }
-
             }
             catch
             {
