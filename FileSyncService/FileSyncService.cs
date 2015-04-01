@@ -23,7 +23,14 @@ namespace FileSyncService
 
         public void RenameEventRaised(object sender, RenamedEventArgs e)
         {
-            _syncOrchestrator.RenameFileEvent(e);
+            try
+            {
+                _syncOrchestrator.RenameFileEvent(e);
+            }
+            catch (Exception exception)
+            {
+                _eventLog.WriteEntry("An Error occurred when trying to make the requested rename due to the following reason(s): " + exception.Message);
+            }
         }
 
         protected override void OnStart(string[] args)
@@ -77,17 +84,38 @@ namespace FileSyncService
 
         private void ChangeEventRaised(object sender, FileSystemEventArgs e)
         {
-            _syncOrchestrator.UpdateFileEvent(e);
+            try
+            {
+                _syncOrchestrator.UpdateFileEvent(e);
+            }
+            catch (Exception exception)
+            {
+                _eventLog.WriteEntry("An Error occurred when trying to make the requested changes due to the following reason(s): " + exception.Message);
+            }
         }
 
         private void CreateEventRaised(object sender, FileSystemEventArgs e)
         {
-            _syncOrchestrator.CreateFileEvent(e);
+            try
+            {
+                _syncOrchestrator.CreateFileEvent(e);
+            }
+            catch (Exception exception)
+            {
+                _eventLog.WriteEntry("An Error occurred when trying to create the request due to the following reason(s): " + exception.Message);
+            }
         }
 
         private void DeleteEventRaised(object sender, FileSystemEventArgs e)
         {
-            _syncOrchestrator.DeleteFileEvent(e);
+            try
+            {
+                _syncOrchestrator.DeleteFileEvent(e);
+            }
+            catch (Exception exception)
+            {
+                _eventLog.WriteEntry("An Error occurred when trying to make the requested delete due to the following reason(s): " + exception.Message);
+            }
         }
     }
 }

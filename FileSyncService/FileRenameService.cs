@@ -6,24 +6,17 @@ namespace FileSyncService
     {
         public void RenameFile(RenamedEventArgs e)
         {
-            try
+            var localRootPath = e.FullPath;
+            var localRootPathOld = e.OldFullPath;
+            var remoteRootPath = string.Format("{0}\\{1}", RemoteRootPath, e.Name);
+
+            if (Directory.Exists(remoteRootPath))
             {
-                var localRootPath = e.FullPath;
-                var localRootPathOld = e.OldFullPath;
-                var remoteRootPath = string.Format("{0}\\{1}", RemoteRootPath, e.Name);
-                
-                if (Directory.Exists(remoteRootPath))
-                {
-                    Directory.Move(localRootPath, remoteRootPath);
-                }
-                else
-                {
-                    File.Move(localRootPathOld + ".txt", remoteRootPath);
-                }
+                Directory.Move(localRootPath, remoteRootPath);
             }
-            catch
+            else
             {
-                // DoLogging() 
+                File.Move(localRootPathOld + ".txt", remoteRootPath);
             }
         }
     }

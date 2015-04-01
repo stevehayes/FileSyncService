@@ -6,23 +6,16 @@ namespace FileSyncService
     {
         public void CopyFile(FileSystemEventArgs e)
         {
-            try
-            {
-                var localPath = e.FullPath;
-                var remotePath = localPath.Replace(LocalRootPath, RemoteRootPath);
+            var localPath = e.FullPath;
+            var remotePath = localPath.Replace(LocalRootPath, RemoteRootPath);
 
-                if (Directory.Exists(localPath))
-                {
-                    Directory.CreateDirectory(remotePath);
-                }
-                else
-                {
-                    File.Copy(localPath + ".txt", remotePath + ".txt", true);
-                }
-            }
-            catch
+            if (Directory.Exists(localPath))
             {
-                // DoLogging();
+                Directory.CreateDirectory(remotePath);
+            }
+            else
+            {
+                File.Copy(localPath + ".txt", remotePath + ".txt", true);
             }
         }
     }

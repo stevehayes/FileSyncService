@@ -6,23 +6,16 @@ namespace FileSyncService
     {
         public void DeleteFile(FileSystemEventArgs e)
         {
-            try
-            {
-                var remoteRoot = e.FullPath.Replace(LocalRootPath, RemoteRootPath);
+            var remoteRoot = e.FullPath.Replace(LocalRootPath, RemoteRootPath);
 
-                if (Directory.Exists(remoteRoot))
-                {
-                    Directory.Delete(remoteRoot, true);
-                }
-                else
-                {
-                    File.Delete(remoteRoot + ".txt");
-                }
-            }
-            catch
+            if (Directory.Exists(remoteRoot))
             {
-                // DoLogging()
-            }    
+                Directory.Delete(remoteRoot, true);
+            }
+            else
+            {
+                File.Delete(remoteRoot + ".txt");
+            }
         }
     }
 }
