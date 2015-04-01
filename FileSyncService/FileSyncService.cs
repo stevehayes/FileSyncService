@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.ServiceProcess;
 
@@ -10,9 +11,11 @@ namespace FileSyncService
         private FileSystemWatcher _fileSystemWatcher;
         private readonly IFileSyncOrchestrator _syncOrchestrator;
         private readonly string _localRootPath = ConfigurationManager.AppSettings["localRootPath"];
+        private readonly EventLog _eventLog;
 
         public FileSyncService(IFileSyncOrchestrator syncOrchestrator)
         {
+            _eventLog = new EventLog("FileSyncService");
             _syncOrchestrator = syncOrchestrator;
             _fileSystemWatcher = new FileSystemWatcher();
             InitializeComponent();
@@ -25,13 +28,13 @@ namespace FileSyncService
 
         protected override void OnStart(string[] args)
         {
-            //EventLog.WriteEntry("File Sync Service has Started.");
+            _eventLog.WriteEntry("File Sync Service has Started.");
             _fileSystemWatcher = ConfigureFileSyncWatcher();
         }
 
         protected override void OnStop()
         {
-            // EventLog.WriteEntry("File Sync Service has Stopped.");
+            _eventLog.WriteEntry("File Sync Service has Stopped.");
         }
 
         private FileSystemWatcher ConfigureFileSyncWatcher()
@@ -51,7 +54,7 @@ namespace FileSyncService
             }
             catch (Exception exception)
             {
-                //EventLog.WriteEntry("File Sync Service did not start due to the following reason(s): " + exception.Message);
+                _eventLog.WriteEntry("File Sync Service did not start due to the following reason(s): " + exception.Message);
             }
 
             return syncFolder;

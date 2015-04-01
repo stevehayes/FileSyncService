@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace FileSyncService
 {
@@ -10,10 +9,9 @@ namespace FileSyncService
             try
             {
                 var localPath = e.FullPath;
-                var directoryExists = DirectoryExists(localPath);
                 var remotePath = localPath.Replace(LocalRootPath, RemoteRootPath);
 
-                if (directoryExists)
+                if (Directory.Exists(localPath))
                 {
                     Directory.CreateDirectory(remotePath);
                 }

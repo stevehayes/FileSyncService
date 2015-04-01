@@ -8,16 +8,12 @@ namespace FileSyncService
         public FileSyncBase()
         {
             LocalRootPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            Directory.CreateDirectory(LocalRootPath + "\\SteveHayes");
             RemoteRootPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SteveHayes";
         }
 
         public string LocalRootPath { get; set; }
 
         public string RemoteRootPath { get; set; }
-
-        public bool DirectoryExists(string path)
-        {
-            return Directory.Exists(path);
-        }
     }
 }

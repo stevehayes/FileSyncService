@@ -54,6 +54,7 @@
     <Compile Include="FileDeleteServiceTests.cs" />
     <Compile Include="FileRenameServiceTests.cs" />
     <Compile Include="FileSyncOrchestratorTests.cs" />
+    <Compile Include="FileSyncServiceTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

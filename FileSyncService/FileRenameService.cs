@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace FileSyncService
 {
@@ -12,9 +11,8 @@ namespace FileSyncService
                 var localRootPath = e.FullPath;
                 var localRootPathOld = e.OldFullPath;
                 var remoteRootPath = string.Format("{0}\\{1}", RemoteRootPath, e.Name);
-                var directoryExists = Directory.Exists(remoteRootPath);
                 
-                if (directoryExists)
+                if (Directory.Exists(remoteRootPath))
                 {
                     Directory.Move(localRootPath, remoteRootPath);
                 }

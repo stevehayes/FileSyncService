@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace FileSyncService
 {
@@ -10,9 +9,8 @@ namespace FileSyncService
             try
             {
                 var remoteRoot = e.FullPath.Replace(LocalRootPath, RemoteRootPath);
-                var directoryExists = Directory.Exists(remoteRoot);
 
-                if (directoryExists)
+                if (Directory.Exists(remoteRoot))
                 {
                     Directory.Delete(remoteRoot, true);
                 }
@@ -23,7 +21,7 @@ namespace FileSyncService
             }
             catch
             {
-                // DoLogging();
+                // DoLogging()
             }    
         }
     }
